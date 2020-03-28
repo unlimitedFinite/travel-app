@@ -22,7 +22,7 @@ class Api::V1::TripsController < ApplicationController
     end
   end
 
-  def destroy
+  def delete
     trip&.destroy
     render json: {message: 'Recipe deleted'}
   end

@@ -7,15 +7,15 @@ export default () => (
       <div className="container secondary-color">
         <h1 className="display-4">Places I've Travelled</h1>
         <p className="lead">
-          A list of places I've travelled in the last couple of years
+          A list of trip from the last couple of years
         </p>
         <hr className="my-4" />
         <Link
-          to="/places"
+          to="/trips"
           className="btn btn-lg custom-button"
           role="button"
         >
-          View Places
+          View Trips
         </Link>
       </div>
     </div>

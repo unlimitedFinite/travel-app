@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+9.times do |i|
+  Trip.create(
+    name: "Trip #{i + 1}",
+    trip_start: Time.at(rand * Time.now.to_i),
+    trip_end: Time.at(rand * Time.now.to_i)
+  )
+end
