@@ -4,6 +4,7 @@ import Home from "../components/Home";
 import Trips from '../components/Trips';
 import Trip from '../components/Trip';
 import NewTrip from '../components/NewTrip';
+import NewCost from '../components/NewCost';
 
 export default (
   <Router>

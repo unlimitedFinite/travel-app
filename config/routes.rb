@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       post 'trips', to: 'trips#create'
       get 'trip/:id', to: 'trips#show'
       delete 'trip/:id', to: 'trips#delete'
+
+      get 'trip/:id/costs', to: 'costs#index'
+      post '/costs', to: 'costs#create'
     end
   end
   root 'homepage#index'

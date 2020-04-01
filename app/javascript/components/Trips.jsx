@@ -63,7 +63,7 @@ class Trips extends React.Component {
             <div className="row">
               {trips.length > 0 ? allTrips : noTrip}
             </div>
-            <Link to="/" className="btn btn-link">
+            <Link to="/" className="btn btn-link" state={trip}>
               Home
             </Link>
           </main>
