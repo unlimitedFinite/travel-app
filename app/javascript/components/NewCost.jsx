@@ -1,37 +1,39 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NewCost = ({ trip }) => {
-  const [cost, dispatch] = React.useReducer((state, action) => {
-    return [...state, action]
-  }, [trip])
+class NewCost extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      info: '',
+      amount: '',
+      date: ''
+    }
 
-  const onChange = (event) => {
-    setCost(() => {
-
-      ...cost,
-      e.target.name: event.target.value
-    });
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  function onSubmit(event) {
-    console.log(event.target);
+  handleChange(event) {
+    this.setState({ [event.target.name] : event.target.value });
+  }
+
+  handleSubmit(event) {
     event.preventDefault();
+    console.log(this.state);
+    const {info, amount, date} = this.state;
     const url = "/api/v1/costs";
-    // const { info, amount, date, trip } = this.useState();
+    const trip_id = this.props.trip.id;
 
-    // if (name.length == 0 || ingredients.length == 0 || instruction.length == 0)
-    //   return;
-
-    cost = {
+    const cost = {
       info,
       amount,
       date,
-      trip
+      trip_id
     };
 
-
     const token = document.querySelector('meta[name="csrf-token"]').content;
+
     fetch(url, {
       method: "POST",
       headers: {
@@ -47,70 +49,75 @@ const NewCost = ({ trip }) => {
         throw new Error("Network response was not ok.");
       })
       .then(response => console.log(response))
-      .then(response => this.props.history.push(`/trip/${trip.id}`))
+      .then(response => this.props.history.push(`/trip/${trip_id}`))
       .catch(error => console.log(error.message));
   }
-
-  return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-sm-12 col-lg-6 offset-lg-3">
-          <h1 className="font-weight-normal mb-5">
-            Add a new travel cost for {trip.name}
-          </h1>
-          <form onSubmit={onSubmit}>
-            <div className="form-group">
-              <label htmlFor="trip">Trip</label>
+  render() {
+    return (
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-sm-12 col-lg-6 offset-lg-3">
+            <h1 className="font-weight-normal mb-5">
+              Add a new travel cost for {this.props.trip.name}
+            </h1>
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="trip">Trip</label>
+                <input
+                  type="text"
+                  name="trip_id"
+                  id="trip"
+                  className="form-control"
+                  disabled={true}
+                  value={ this.props.trip.name || '' }
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="costInfo">Cost Information</label>
+                <input
+                  type="text"
+                  name="info"
+                  id="costInfo"
+                  className="form-control"
+                  required
+                  onChange={this.handleChange}
+                  value={this.state.info}
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="costAmount">Amount in GBP</label>
+                <input
+                  type="number"
+                  name="amount"
+                  id="costAmount"
+                  className="form-control"
+                  required
+                  onChange={this.handleChange}
+                  value={this.state.amount}
+                />
+              </div>
+              <label htmlFor="costDate">Date</label>
               <input
-                type="text"
-                name="trip"
-                id="trip"
+                type="date"
                 className="form-control"
-                disabled={true}
-                value={trip}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="costInfo">Cost Information</label>
-              <input
-                type="text"
-                name="info"
-                id="costInfo"
-                className="form-control"
+                id="costDate"
+                name="date"
                 required
-                onChange={dispatch}
+                onChange={this.handleChange}
+                value={this.state.date}
               />
-            </div>
-            <div className="form-group">
-              <label htmlFor="costAmount">Amount in GBP</label>
-              <input
-                type="number"
-                name="amount"
-                id="costAmount"
-                className="form-control"
-                required
-              />
-            </div>
-            <label htmlFor="costDate">Date</label>
-            <input
-              type="date"
-              className="form-control"
-              id="costDate"
-              name="date"
-              required
-            />
-            <button type="submit" className="btn custom-button mt-3">
-              Add Cost
-            </button>
-            <Link to="/trip/" className="btn btn-link mt-3">
-              Back to trip
-            </Link>
-          </form>
+              <button type="submit" className="btn custom-button mt-3">
+                Add Cost
+              </button>
+              <Link to="/trip/" className="btn btn-link mt-3">
+                Back to trip
+              </Link>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  );
-
+    );
+  }
 }
 
 export default NewCost;

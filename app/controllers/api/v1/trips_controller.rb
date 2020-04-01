@@ -15,8 +15,10 @@ class Api::V1::TripsController < ApplicationController
   end
 
   def show
+    costs_array = Cost.all.where(trip_id: trip.id)
+    p costs_array
     if trip
-      render json: trip
+      render json: trip, :include => :costs
     else
       render json: trip.errors
     end

@@ -18,23 +18,22 @@ class Trip extends React.Component {
   }
 
   componentDidMount() {
-    const trip = this.props.location.state
-    // const {
-    //   match: {
-    //     params: {id}
-    //   }
-    // } = this.props;
+    const {
+      match: {
+        params: {id}
+      }
+    } = this.props;
 
-    // const url = `/api/v1/trip/${id}`;
-    // fetch(url)
-    //   .then(res => {
-    //     if (res.ok) {
-    //       return res.json();
-    //     }
-    //     throw new Error('Network response was not ok.');
-    //   })
-    //   .then(res => this.setState({ trip: res }))
-    //   .catch(() => this.props.history.push('/trips'));
+    const url = `/api/v1/trip/${id}`;
+    fetch(url)
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error('Network response was not ok.');
+      })
+      .then(res => this.setState({ trip: res }))
+      .catch(() => this.props.history.push('/trips'));
   }
 
   addHtmlEntities(str) {
@@ -96,8 +95,8 @@ class Trip extends React.Component {
               <button onClick={this.showModal} className="show-modal btn custom-button">
                 Add cost to trip
               </button>
-              {/*<Modal handleClose={this.hideModal} show={this.state.showAddCost}>
-              </Modal>*/}
+              <Modal handleClose={this.hideModal} show={this.state.showAddCost}>
+              </Modal>
               <NewCost trip={trip}/>
             </div>
           </div>

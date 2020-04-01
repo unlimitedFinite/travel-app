@@ -29,7 +29,10 @@ class Trips extends React.Component {
         <div className="card mb-4">
           <div className="card-body">
             <h5 className="card-title">{trip.name}</h5>
-            <Link to={`trip/${trip.id}`} className="btn custom-button">
+            <Link to={{
+              pathname: `/trip/${trip.id}`,
+              state: {trip: trip}
+            }} className="btn custom-button">
               View Trip
             </Link>
           </div>
@@ -63,7 +66,7 @@ class Trips extends React.Component {
             <div className="row">
               {trips.length > 0 ? allTrips : noTrip}
             </div>
-            <Link to="/" className="btn btn-link" state={trip}>
+            <Link to="/" className="btn btn-link">
               Home
             </Link>
           </main>
